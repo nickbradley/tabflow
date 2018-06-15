@@ -1,22 +1,25 @@
-$(function () {
-    $("#btnExport").click(() => {
-        console.log("User clicked export");
-        browser.storage.local.get(null, function(items) { // null implies all items
-            //let str = encode(JSON.stringify(items));
-            var json = JSON.stringify(items);
-            console.log(json);
-            var blob = new Blob([ json ], { type: "application/json" });
-
-            // Convert object to a string.
-            // var result = JSON.stringify(items);
-            // console.log("Exporting", result);
-            // Save as file
-            // var url = 'data:application/json;base64,' + btoa(result);
-            // console.log(url)
-            // browser.downloads.download({
-            //     url: URL.createObjectURL(blob),
-            //     filename: 'tabflow.json'
-            // }).then(() => console.log("done downloading")).catch((error) => console.error("Download failed"));
+/**
+ * Pull all the events from storage and download in JSON. 
+ */
+function btnExportClick() {
+    let getEvents = browser.storage.local.get({
+        activated: [],
+        attached: [],
+        created: [],
+        detached: [],
+        moved: [],
+        removed: [],
+        updated: []
+    });
+    
+    getEvents.then(events => {
+       let json = JSON.stringify(events);
+       let blob = new Blob([ json ], { type: "application/json" });
+       browser.downloads.download({
+            url: URL.createObjectURL(blob),
+            filename: "tabflow.json"
         });
     });
-});
+}
+
+document.getElementById("btnExport").addEventListener("click", btnExportClick);

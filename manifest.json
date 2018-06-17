@@ -2,17 +2,19 @@
 
     "manifest_version": 2,
     "name": "Tab Flow",
-    "version": "1.0",
+    "version": "1.0.0",
   
     "description": "Logs tab events.",
     "browser_action": {
         "browser_style": true,
         "default_title": "Tab Flow",
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": "icons/icon48.png"
       },
     "icons": {
-        "48": "icons/icon-blue.svg",
-        "96": "icons/icon-blue.svg"
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
       },
       "permissions": [
         "tabs",
